@@ -11,9 +11,12 @@ import XCTest
 
 class calendarappTests: XCTestCase {
     
+    let utilities = CAUtilities()
+    
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
+        
     }
     
     override func tearDown() {
@@ -21,16 +24,21 @@ class calendarappTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testStartingMonth() {
+        XCTAssertTrue(utilities.startingDayOfMonth(dateString:"1900 03 01") == 5)
+        XCTAssertTrue(utilities.startingDayOfMonth(dateString:"1950 03 01") == 4)
+        XCTAssertTrue(utilities.startingDayOfMonth(dateString:"1988 01 01") == 6)
+        XCTAssertTrue(utilities.startingDayOfMonth(dateString:"2018 04 01") == 1)
     }
     
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    func testLeapYear()
+    {
+        XCTAssertTrue(utilities.isLeapYear(year: 1988))
+        XCTAssertFalse(utilities.isLeapYear(year: 1900))
+        XCTAssertTrue(utilities.isLeapYear(year: 2000))
+        XCTAssertFalse(utilities.isLeapYear(year: 1998))
     }
+    
+    
     
 }
