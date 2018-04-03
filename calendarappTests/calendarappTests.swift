@@ -24,11 +24,19 @@ class calendarappTests: XCTestCase {
         super.tearDown()
     }
     
-    func testStartingMonth() {
-        XCTAssertTrue(utilities.startingDayOfMonth(dateString:"1900 03 01") == 5)
-        XCTAssertTrue(utilities.startingDayOfMonth(dateString:"1950 03 01") == 4)
-        XCTAssertTrue(utilities.startingDayOfMonth(dateString:"1988 01 01") == 6)
-        XCTAssertTrue(utilities.startingDayOfMonth(dateString:"2018 04 01") == 1)
+    func testStartingDayOfMonth() {
+        XCTAssertTrue(utilities.startingDayOfMonth(forMonth: 3, forYear: 1900)==5)
+        XCTAssertTrue(utilities.startingDayOfMonth(forMonth: 3, forYear: 1950)==4)
+        XCTAssertTrue(utilities.startingDayOfMonth(forMonth: 1, forYear: 1988)==6)
+        XCTAssertTrue(utilities.startingDayOfMonth(forMonth: 4, forYear: 2018)==1)
+    }
+    
+    func testLastDayForMonth() {
+        
+    }
+    
+    func testWeekOffsetForStartingDay() {
+        
     }
     
     func testLeapYear()
@@ -37,6 +45,15 @@ class calendarappTests: XCTestCase {
         XCTAssertFalse(utilities.isLeapYear(year: 1900))
         XCTAssertTrue(utilities.isLeapYear(year: 2000))
         XCTAssertFalse(utilities.isLeapYear(year: 1998))
+    }
+    
+    func testgetHeader()
+    {
+        XCTAssertTrue(utilities.getHeader(forMonth: 10, forYear: 1988)=="October 1988")
+        XCTAssertTrue(utilities.getHeader(forMonth: 12, forYear: 2019)=="December 2019")
+        XCTAssertTrue(utilities.getHeader(forMonth: 1, forYear: 2000)=="January 2000")
+        XCTAssertTrue(utilities.getHeader(forMonth: 2, forYear: 2018)=="February 2018")
+        XCTAssertTrue(utilities.getHeader(forMonth: 4, forYear: 2017)=="April 2017")
     }
     
     
