@@ -32,10 +32,29 @@ class calendarappTests: XCTestCase {
     }
     
     func testLastDayForMonth() {
-        
+        XCTAssertTrue(utilities.getLastDayOfMonth(forMonth: 2, forYear: 2000)==29)
+        XCTAssertTrue(utilities.getLastDayOfMonth(forMonth: 2, forYear: 2004)==29)
+        XCTAssertTrue(utilities.getLastDayOfMonth(forMonth: 2, forYear: 2008)==29)
+        XCTAssertTrue(utilities.getLastDayOfMonth(forMonth: 2, forYear: 2001)==28)
+        XCTAssertTrue(utilities.getLastDayOfMonth(forMonth: 2, forYear: 2003)==28)
+        XCTAssertTrue(utilities.getLastDayOfMonth(forMonth: 2, forYear: 2009)==28)
+        XCTAssertTrue(utilities.getLastDayOfMonth(forMonth: 12, forYear: 2000)==31)
+        XCTAssertTrue(utilities.getLastDayOfMonth(forMonth: 4, forYear: 2000)==30)
+        XCTAssertTrue(utilities.getLastDayOfMonth(forMonth: 1, forYear: 2000)==31)
     }
     
     func testWeekOffsetForStartingDay() {
+        XCTAssertTrue(utilities.getWeekOffsetForStartingDay(startingDay: 7)==1)
+        XCTAssertTrue(utilities.getWeekOffsetForStartingDay(startingDay: 6)==2)
+        XCTAssertTrue(utilities.getWeekOffsetForStartingDay(startingDay: 5)==3)
+        XCTAssertTrue(utilities.getWeekOffsetForStartingDay(startingDay: 4)==4)
+        XCTAssertTrue(utilities.getWeekOffsetForStartingDay(startingDay: 3)==5)
+        XCTAssertTrue(utilities.getWeekOffsetForStartingDay(startingDay: 2)==6)
+        XCTAssertTrue(utilities.getWeekOffsetForStartingDay(startingDay: 1)==7)
+        
+        XCTAssertTrue(utilities.getWeekOffsetForStartingDay(startingDay: 10)==0)
+        XCTAssertTrue(utilities.getWeekOffsetForStartingDay(startingDay: 21)==0)
+        
         
     }
     
@@ -55,7 +74,5 @@ class calendarappTests: XCTestCase {
         XCTAssertTrue(utilities.getHeader(forMonth: 2, forYear: 2018)=="February 2018")
         XCTAssertTrue(utilities.getHeader(forMonth: 4, forYear: 2017)=="April 2017")
     }
-    
-    
     
 }

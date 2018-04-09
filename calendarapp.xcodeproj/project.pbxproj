@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		42051465207B875C00F6B312 /* Appointment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42051464207B875C00F6B312 /* Appointment.swift */; };
 		42051467207B894800F6B312 /* AppointmentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42051466207B894800F6B312 /* AppointmentData.swift */; };
+		420514A4207BD0B500F6B312 /* readme.md in Resources */ = {isa = PBXBuildFile; fileRef = 420514A3207BD0B500F6B312 /* readme.md */; };
 		42577A92206E07BA00DC4DA9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42577A91206E07BA00DC4DA9 /* AppDelegate.swift */; };
 		42577A94206E07BB00DC4DA9 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42577A93206E07BB00DC4DA9 /* CalendarViewController.swift */; };
 		42577A99206E07BB00DC4DA9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42577A98206E07BB00DC4DA9 /* Assets.xcassets */; };
@@ -44,6 +45,7 @@
 /* Begin PBXFileReference section */
 		42051464207B875C00F6B312 /* Appointment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appointment.swift; sourceTree = "<group>"; };
 		42051466207B894800F6B312 /* AppointmentData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppointmentData.swift; sourceTree = "<group>"; };
+		420514A3207BD0B500F6B312 /* readme.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = readme.md; sourceTree = "<group>"; };
 		42577A8E206E07BA00DC4DA9 /* calendarapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = calendarapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42577A91206E07BA00DC4DA9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		42577A93206E07BB00DC4DA9 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 		42577A85206E07BA00DC4DA9 = {
 			isa = PBXGroup;
 			children = (
+				420514A3207BD0B500F6B312 /* readme.md */,
 				42577A90206E07BA00DC4DA9 /* calendarapp */,
 				42577AA5206E07BB00DC4DA9 /* calendarappTests */,
 				42577AB0206E07BB00DC4DA9 /* calendarappUITests */,
@@ -289,6 +292,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				42577A9C206E07BB00DC4DA9 /* LaunchScreen.storyboard in Resources */,
+				420514A4207BD0B500F6B312 /* readme.md in Resources */,
 				42577A99206E07BB00DC4DA9 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
