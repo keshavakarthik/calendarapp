@@ -13,18 +13,15 @@ class CalendarViewController: UIViewController,UITableViewDataSource,UITableView
     let calendarTableView = UITableView()
     let calendarReuseIdentifier = "calendarCell"
     
-    let utilities = CAUtilities()
+    let utilities = Utilities()
     let numberOfDaysInWeek = 7
-    let screenWidth = CAUtilities().screenWidth
+    let screenWidth = Utilities().screenWidth
     
  
-    let todaysCalendar
-        = CACalendar(day: Calendar.current.component(.day, from: Date()),
-                    month: Calendar.current.component(.month, from: Date()),
-                    year: Calendar.current.component(.year, from: Date()),
-                    weekday: Calendar.current.component(.weekday, from: Date()))
-    
-    var arrayOfYears = [Int]()
+    let calendarDatasource = CalendarData()
+    let currentMonth = Calendar.current.component(.month, from: Date())
+    let currentDay   = Calendar.current.component(.day, from: Date())
+    let currentYear  = Calendar.current.component(.year, from: Date())
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,13 +29,13 @@ class CalendarViewController: UIViewController,UITableViewDataSource,UITableView
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor(hex: 0x00BFFF),
                                                                     NSAttributedStringKey.font : UIFont.systemFont(ofSize: 18.0, weight: .semibold)]
         
-        arrayOfYears.append(todaysCalendar.year)
+        
         
         configureTableView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        let indexPath = IndexPath(row: 0, section: todaysCalendar.month-1)
+        let indexPath = IndexPath(row: 0, section: ((currentYear-2018)*12)+currentMonth-1)
         self.calendarTableView.scrollToRow(at: indexPath, at: .top, animated: true)
     }
     
@@ -62,15 +59,14 @@ class CalendarViewController: UIViewController,UITableViewDataSource,UITableView
     
     //MARK: - TableView Methods
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 12
+        return calendarDatasource.calendarData.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         let dateFormat = DateFormatter()
         dateFormat.dateFormat = "yyyy MM dd"
-        let endDay = utilities.getLastDayOfMonth(forMonth: section, forYear: todaysCalendar.year)
-        let endDate = dateFormat.date(from: "\(todaysCalendar.year) \(section+1) \(endDay)")
+        let endDate = dateFormat.date(from: "\(calendarDatasource.calendarData[section].year) \(calendarDatasource.calendarData[section].month) \(calendarDatasource.calendarData[section].lastDay)")
         return Calendar.current.component(.weekOfMonth, from: endDate!) + 1
     }
     
@@ -84,15 +80,17 @@ class CalendarViewController: UIViewController,UITableViewDataSource,UITableView
         headerView.backgroundColor = UIColor.white
         headerView.textColor = UIColor(hex: 0x00BFFF)
         headerView.font = UIFont.systemFont(ofSize: 24, weight: .semibold)
-        headerView.text = "\t" + utilities.getHeader(forMonth: section+1, forYear: todaysCalendar.year)
+        headerView.text = "\t" + utilities.getHeader(forMonth: calendarDatasource.calendarData[section].month, forYear: calendarDatasource.calendarData[section].year)
         return headerView
         
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.calendarTableView.dequeueReusableCell(withIdentifier: calendarReuseIdentifier) as! CalendarCell
-        let startingDayOfMonth = utilities.startingDayOfMonth(forMonth: indexPath.section + 1, forYear: todaysCalendar.year)
-        let numberOfDaysInMonth = utilities.getLastDayOfMonth(forMonth: indexPath.section, forYear: todaysCalendar.year)
+        
+        let startingDayOfMonth = utilities.startingDayOfMonth(forMonth: calendarDatasource.calendarData[indexPath.section].month, forYear: calendarDatasource.calendarData[indexPath.section].year)
+        
+        let numberOfDaysInMonth = utilities.getLastDayOfMonth(forMonth: calendarDatasource.calendarData[indexPath.section].month, forYear: calendarDatasource.calendarData[indexPath.section].year)
         
         if indexPath.row == 0
         {
@@ -116,45 +114,45 @@ class CalendarViewController: UIViewController,UITableViewDataSource,UITableView
             cell.weekdaySix.text    = (lastDayOfWeek - 2) > 0 ? "\(lastDayOfWeek - 2)" : " "
             cell.weekdaySeven.text  = (lastDayOfWeek - 1) > 0 ? "\(lastDayOfWeek - 1)" : " "
             
-            if indexPath.section == todaysCalendar.month - 1
+            if calendarDatasource.calendarData[indexPath.section].month == currentMonth && calendarDatasource.calendarData[indexPath.section].year == currentYear
             {
-                if lastDayOfWeek - 7 == todaysCalendar.day
+                if lastDayOfWeek - 7 == currentDay
                 {
                     cell.weekdayOne.backgroundColor = UIColor(hex: 0x00BFFF)
                     cell.weekdayOne.textColor = .white
                     
                 }
-                else if lastDayOfWeek - 6 == todaysCalendar.day
+                else if lastDayOfWeek - 6 == currentDay
                 {
                     cell.weekdayTwo.backgroundColor = UIColor(hex: 0x00BFFF)
                     cell.weekdayTwo.textColor = .white
                   
                 }
-                else if lastDayOfWeek - 5 == todaysCalendar.day
+                else if lastDayOfWeek - 5 == currentDay
                 {
                     cell.weekdayThree.backgroundColor = UIColor(hex: 0x00BFFF)
                     cell.weekdayThree.textColor = .white
                    
                 }
-                else if lastDayOfWeek - 4 == todaysCalendar.day
+                else if lastDayOfWeek - 4 == currentDay
                 {
                     cell.weekdayFour.backgroundColor = UIColor(hex: 0x00BFFF)
                     cell.weekdayFour.textColor = .white
                    
                 }
-                else if lastDayOfWeek - 3 == todaysCalendar.day
+                else if lastDayOfWeek - 3 == currentDay
                 {
                     cell.weekdayFive.backgroundColor = UIColor(hex: 0x00BFFF)
                     cell.weekdayFive.textColor = .white
                     
                 }
-                else if lastDayOfWeek - 2 == todaysCalendar.day
+                else if lastDayOfWeek - 2 == currentDay
                 {
                     cell.weekdaySix.backgroundColor = UIColor(hex: 0x00BFFF)
                     cell.weekdaySix.textColor = .white
                     
                 }
-                else if lastDayOfWeek - 1 == todaysCalendar.day
+                else if lastDayOfWeek - 1 == currentDay
                 {
                     cell.weekdaySeven.backgroundColor = UIColor(hex: 0x00BFFF)
                     cell.weekdaySeven.textColor = .white
@@ -162,9 +160,9 @@ class CalendarViewController: UIViewController,UITableViewDataSource,UITableView
                 }
             }
         }
-        else
+        else if indexPath.row == 2
         {
-            let lastDayOfWeek = utilities.getWeekOffsetForStartingDay(startingDay: startingDayOfMonth) + ((indexPath.row - 1) * numberOfDaysInWeek)
+            let lastDayOfWeek = utilities.getWeekOffsetForStartingDay(startingDay: startingDayOfMonth)
             
             cell.weekdayOne.text    = (lastDayOfWeek + 1) <= numberOfDaysInMonth ? "\(lastDayOfWeek + 1)" : " "
             cell.weekdayTwo.text    = (lastDayOfWeek + 2) <= numberOfDaysInMonth ? "\(lastDayOfWeek + 2)" : " "
@@ -174,45 +172,149 @@ class CalendarViewController: UIViewController,UITableViewDataSource,UITableView
             cell.weekdaySix.text    = (lastDayOfWeek + 6) <= numberOfDaysInMonth ? "\(lastDayOfWeek + 6)" : " "
             cell.weekdaySeven.text  = (lastDayOfWeek + 7) <= numberOfDaysInMonth ? "\(lastDayOfWeek + 7)" : " "
             
-            if indexPath.section == todaysCalendar.month - 1
+            if calendarDatasource.calendarData[indexPath.section].month == currentMonth && calendarDatasource.calendarData[indexPath.section].year == currentYear
             {
-                if lastDayOfWeek + 1 == todaysCalendar.day
+                if lastDayOfWeek - 7 == currentDay
                 {
                     cell.weekdayOne.backgroundColor = UIColor(hex: 0x00BFFF)
                     cell.weekdayOne.textColor = .white
-                   
+                    
                 }
-                else if lastDayOfWeek + 2 == todaysCalendar.day
+                else if lastDayOfWeek - 6 == currentDay
                 {
                     cell.weekdayTwo.backgroundColor = UIColor(hex: 0x00BFFF)
                     cell.weekdayTwo.textColor = .white
-                   
+                    
                 }
-                else if lastDayOfWeek + 3 == todaysCalendar.day
+                else if lastDayOfWeek - 5 == currentDay
                 {
                     cell.weekdayThree.backgroundColor = UIColor(hex: 0x00BFFF)
                     cell.weekdayThree.textColor = .white
                     
                 }
-                else if lastDayOfWeek + 4 == todaysCalendar.day
+                else if lastDayOfWeek - 4 == currentDay
                 {
                     cell.weekdayFour.backgroundColor = UIColor(hex: 0x00BFFF)
                     cell.weekdayFour.textColor = .white
                     
                 }
-                else if lastDayOfWeek + 5 == todaysCalendar.day
+                else if lastDayOfWeek - 3 == currentDay
                 {
                     cell.weekdayFive.backgroundColor = UIColor(hex: 0x00BFFF)
                     cell.weekdayFive.textColor = .white
                     
                 }
-                else if lastDayOfWeek + 6 == todaysCalendar.day
+                else if lastDayOfWeek - 2 == currentDay
+                {
+                    cell.weekdaySix.backgroundColor = UIColor(hex: 0x00BFFF)
+                    cell.weekdaySix.textColor = .white
+                    
+                }
+                else if lastDayOfWeek - 1 == currentDay
+                {
+                    cell.weekdaySeven.backgroundColor = UIColor(hex: 0x00BFFF)
+                    cell.weekdaySeven.textColor = .white
+                    
+                }
+            }
+            
+            if calendarDatasource.calendarData[indexPath.section].month == currentMonth && calendarDatasource.calendarData[indexPath.section].year == currentYear
+            {
+                if lastDayOfWeek + 1 == currentDay
+                {
+                    cell.weekdayOne.backgroundColor = UIColor(hex: 0x00BFFF)
+                    cell.weekdayOne.textColor = .white
+                    
+                }
+                else if lastDayOfWeek + 2 == currentDay
+                {
+                    cell.weekdayTwo.backgroundColor = UIColor(hex: 0x00BFFF)
+                    cell.weekdayTwo.textColor = .white
+                    
+                }
+                else if lastDayOfWeek + 3 == currentDay
+                {
+                    cell.weekdayThree.backgroundColor = UIColor(hex: 0x00BFFF)
+                    cell.weekdayThree.textColor = .white
+                    
+                }
+                else if lastDayOfWeek + 4 == currentDay
+                {
+                    cell.weekdayFour.backgroundColor = UIColor(hex: 0x00BFFF)
+                    cell.weekdayFour.textColor = .white
+                    
+                }
+                else if lastDayOfWeek + 5 == currentDay
+                {
+                    cell.weekdayFive.backgroundColor = UIColor(hex: 0x00BFFF)
+                    cell.weekdayFive.textColor = .white
+                    
+                }
+                else if lastDayOfWeek + 6 == currentDay
+                {
+                    cell.weekdaySix.backgroundColor = UIColor(hex: 0x00BFFF)
+                    cell.weekdaySix.textColor = .white
+                    
+                }
+                else if lastDayOfWeek + 7 == currentDay
+                {
+                    cell.weekdaySeven.backgroundColor = UIColor(hex: 0x00BFFF)
+                    cell.weekdaySeven.textColor = .white
+                    
+                }
+            }
+        }
+        else
+        {
+            let lastDayOfWeek = utilities.getWeekOffsetForStartingDay(startingDay: startingDayOfMonth) + ((indexPath.row - 2) * numberOfDaysInWeek)
+            
+            cell.weekdayOne.text    = (lastDayOfWeek + 1) <= numberOfDaysInMonth ? "\(lastDayOfWeek + 1)" : " "
+            cell.weekdayTwo.text    = (lastDayOfWeek + 2) <= numberOfDaysInMonth ? "\(lastDayOfWeek + 2)" : " "
+            cell.weekdayThree.text  = (lastDayOfWeek + 3) <= numberOfDaysInMonth ? "\(lastDayOfWeek + 3)" : " "
+            cell.weekdayFour.text   = (lastDayOfWeek + 4) <= numberOfDaysInMonth ? "\(lastDayOfWeek + 4)" : " "
+            cell.weekdayFive.text   = (lastDayOfWeek + 5) <= numberOfDaysInMonth ? "\(lastDayOfWeek + 5)" : " "
+            cell.weekdaySix.text    = (lastDayOfWeek + 6) <= numberOfDaysInMonth ? "\(lastDayOfWeek + 6)" : " "
+            cell.weekdaySeven.text  = (lastDayOfWeek + 7) <= numberOfDaysInMonth ? "\(lastDayOfWeek + 7)" : " "
+            
+           if calendarDatasource.calendarData[indexPath.section].month == currentMonth && calendarDatasource.calendarData[indexPath.section].year == currentYear
+            {
+                if lastDayOfWeek + 1 == currentDay
+                {
+                    cell.weekdayOne.backgroundColor = UIColor(hex: 0x00BFFF)
+                    cell.weekdayOne.textColor = .white
+                   
+                }
+                else if lastDayOfWeek + 2 == currentDay
+                {
+                    cell.weekdayTwo.backgroundColor = UIColor(hex: 0x00BFFF)
+                    cell.weekdayTwo.textColor = .white
+                   
+                }
+                else if lastDayOfWeek + 3 == currentDay
+                {
+                    cell.weekdayThree.backgroundColor = UIColor(hex: 0x00BFFF)
+                    cell.weekdayThree.textColor = .white
+                    
+                }
+                else if lastDayOfWeek + 4 == currentDay
+                {
+                    cell.weekdayFour.backgroundColor = UIColor(hex: 0x00BFFF)
+                    cell.weekdayFour.textColor = .white
+                    
+                }
+                else if lastDayOfWeek + 5 == currentDay
+                {
+                    cell.weekdayFive.backgroundColor = UIColor(hex: 0x00BFFF)
+                    cell.weekdayFive.textColor = .white
+                    
+                }
+                else if lastDayOfWeek + 6 == currentDay
                 {
                     cell.weekdaySix.backgroundColor = UIColor(hex: 0x00BFFF)
                     cell.weekdaySix.textColor = .white
                   
                 }
-                else if lastDayOfWeek + 7 == todaysCalendar.day
+                else if lastDayOfWeek + 7 == currentDay
                 {
                     cell.weekdaySeven.backgroundColor = UIColor(hex: 0x00BFFF)
                     cell.weekdaySeven.textColor = .white
@@ -221,8 +323,34 @@ class CalendarViewController: UIViewController,UITableViewDataSource,UITableView
             }
         }
         
+        
+        
         cell.layoutSubviews()
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        if indexPath.section == calendarDatasource.calendarData.count - 1
+        {
+            let year = calendarDatasource.calendarData[indexPath.section - 1].year
+            
+            for month in 1..<13
+            {
+                let calendar = CalendarModel(month: month,
+                                          year: year+1)
+                
+                calendarDatasource.calendarData.append(calendar)
+            }
+            
+            tableView.reloadData()
+            tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+        }
+        
     }
     
 }

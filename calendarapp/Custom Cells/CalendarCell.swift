@@ -22,7 +22,7 @@ class CalendarCell : UITableViewCell  {
     let weekdaySix      = UILabel()
     let weekdaySeven    = UILabel()
     
-    let screenWidth = CAUtilities().screenWidth
+    let screenWidth = Utilities().screenWidth
     
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {

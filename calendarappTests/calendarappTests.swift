@@ -11,7 +11,7 @@ import XCTest
 
 class calendarappTests: XCTestCase {
     
-    let utilities = CAUtilities()
+    let utilities = Utilities()
     
     override func setUp() {
         super.setUp()

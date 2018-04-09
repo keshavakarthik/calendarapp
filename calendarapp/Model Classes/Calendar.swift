@@ -8,21 +8,20 @@
 
 import Foundation
 
-class CACalendar {
+class CalendarModel {
     
-    let day         :   Int
-    let month       :   Int
-    let year        :   Int
-    let weekday     :   Int
+    let startingDay         :   Int
+    let lastDay             :   Int
+    let month               :   Int
+    let year                :   Int
     
-    public init(day:Int,
-                month:Int,
-                year:Int,
-                weekday:Int)
+    public init(month:Int,
+                year:Int)
     {
-        self.day        =   day
-        self.month      =   month
-        self.year       =   year
-        self.weekday    =   weekday
+        self.startingDay    =   1
+        self.lastDay        =   Utilities().getLastDayOfMonth(forMonth: month, forYear: year)
+        self.month          =   month
+        self.year           =   year
+        
     }
 }

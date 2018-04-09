@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-open class CAUtilities {
+open class Utilities {
     
     let screenHeight : CGFloat = {
         return UIScreen.main.bounds.size.height
@@ -78,7 +78,7 @@ open class CAUtilities {
     func getLastDayOfMonth(forMonth month:Int, forYear year:Int) -> Int
     {
         var endDay = -1
-        if month == 1
+        if month == 2
         {
             if self.isLeapYear(year: year)
             {
@@ -89,9 +89,9 @@ open class CAUtilities {
                 endDay = 28
             }
         }
-        else if month <= 6
+        else if month <= 7
         {
-            if month % 2 == 0
+            if month % 2 == 1
             {
                 endDay = 31
             }
@@ -102,7 +102,7 @@ open class CAUtilities {
         }
         else
         {
-            if month % 2 == 1
+            if month % 2 == 0
             {
                 endDay = 31
             }

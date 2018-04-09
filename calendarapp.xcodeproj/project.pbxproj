@@ -17,6 +17,8 @@
 		42577AC6206E0A1500DC4DA9 /* Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42577AC5206E0A1500DC4DA9 /* Calendar.swift */; };
 		42577ACD206E341E00DC4DA9 /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42577ACC206E341E00DC4DA9 /* CalendarCell.swift */; };
 		42577ACF206FFA4700DC4DA9 /* UIColor+HexExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42577ACE206FFA4700DC4DA9 /* UIColor+HexExtension.swift */; };
+		429C2AC52075E06500C85045 /* CalendarData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429C2AC42075E06500C85045 /* CalendarData.swift */; };
+		429C2BBB2077732F00C85045 /* AgendaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429C2BBA2077732F00C85045 /* AgendaCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,8 @@
 		42577AC5206E0A1500DC4DA9 /* Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calendar.swift; sourceTree = "<group>"; };
 		42577ACC206E341E00DC4DA9 /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		42577ACE206FFA4700DC4DA9 /* UIColor+HexExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+HexExtension.swift"; sourceTree = "<group>"; };
+		429C2AC42075E06500C85045 /* CalendarData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarData.swift; sourceTree = "<group>"; };
+		429C2BBA2077732F00C85045 /* AgendaCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +107,7 @@
 		42577A90206E07BA00DC4DA9 /* calendarapp */ = {
 			isa = PBXGroup;
 			children = (
+				429C2BB92077731300C85045 /* Custom Cells */,
 				42577AC4206E08FD00DC4DA9 /* Model Classes */,
 				42577ABF206E07D600DC4DA9 /* Utilities */,
 				42577A91206E07BA00DC4DA9 /* AppDelegate.swift */,
@@ -145,9 +150,18 @@
 			isa = PBXGroup;
 			children = (
 				42577AC5206E0A1500DC4DA9 /* Calendar.swift */,
-				42577ACC206E341E00DC4DA9 /* CalendarCell.swift */,
+				429C2AC42075E06500C85045 /* CalendarData.swift */,
 			);
 			path = "Model Classes";
+			sourceTree = "<group>";
+		};
+		429C2BB92077731300C85045 /* Custom Cells */ = {
+			isa = PBXGroup;
+			children = (
+				42577ACC206E341E00DC4DA9 /* CalendarCell.swift */,
+				429C2BBA2077732F00C85045 /* AgendaCell.swift */,
+			);
+			path = "Custom Cells";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -284,7 +298,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				42577AC3206E081600DC4DA9 /* Utilities.swift in Sources */,
+				429C2AC52075E06500C85045 /* CalendarData.swift in Sources */,
 				42577ACD206E341E00DC4DA9 /* CalendarCell.swift in Sources */,
+				429C2BBB2077732F00C85045 /* AgendaCell.swift in Sources */,
 				42577ACF206FFA4700DC4DA9 /* UIColor+HexExtension.swift in Sources */,
 				42577A94206E07BB00DC4DA9 /* CalendarViewController.swift in Sources */,
 				42577A92206E07BA00DC4DA9 /* AppDelegate.swift in Sources */,
