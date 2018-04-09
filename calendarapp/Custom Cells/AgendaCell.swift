@@ -16,7 +16,7 @@ class AgendaCell : UITableViewCell {
     let classificationColor = UILabel()
     let eventTitle          = UILabel()
     let locationImage       = UIImageView()
-    let eventLocation          = UILabel()
+    let eventLocation       = UILabel()
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -42,10 +42,10 @@ class AgendaCell : UITableViewCell {
          eventDuration.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor).isActive = true
         
          eventStartTime.widthAnchor.constraint(equalToConstant: 100.0).isActive = true
-         eventStartTime.heightAnchor.constraint(equalToConstant: 50.0).isActive = true
+         eventStartTime.heightAnchor.constraint(equalToConstant: 30.0).isActive = true
         
          eventDuration.widthAnchor.constraint(equalTo: eventStartTime.widthAnchor, multiplier: 1.0).isActive = true
-         eventDuration.heightAnchor.constraint(equalTo: eventStartTime.heightAnchor, multiplier: 1.0).isActive = true
+        
         
         /*
          Label properties
@@ -57,6 +57,9 @@ class AgendaCell : UITableViewCell {
         eventDuration.textColor      = .lightGray
         eventDuration.font           = UIFont.systemFont(ofSize: 14, weight: .light)
         
+        eventStartTime.contentMode = .topLeft
+        eventDuration.contentMode  = .topLeft
+        
         /*
           1.classificationColor is placed next to eventStartTime
           2. Height and Width are set to 20.0
@@ -64,13 +67,18 @@ class AgendaCell : UITableViewCell {
          */
         contentView.addSubview(classificationColor)
         
+        classificationColor.translatesAutoresizingMaskIntoConstraints = false
+        
         classificationColor.leftAnchor.constraint(equalTo: eventStartTime.rightAnchor).isActive = true
         classificationColor.topAnchor.constraint(equalTo: eventStartTime.topAnchor).isActive   = true
+        //classificationColor.centerXAnchor.constraint(equalTo: eventStartTime.centerXAnchor).isActive = true
         
-        classificationColor.widthAnchor.constraint(equalToConstant: 20.0)
-        classificationColor.heightAnchor.constraint(equalToConstant: 20.0)
+        classificationColor.widthAnchor.constraint(equalToConstant: 5.0)
+        classificationColor.heightAnchor.constraint(equalTo: classificationColor.widthAnchor, multiplier: 1.0)
+    
         
-        classificationColor.backgroundColor = .white
+        
+        //classificationColor.backgroundColor = .white
         
         /*
          1.eventTitle is placed next to classificationColor. Top Edge aligned to classificationColor Top Edge.
@@ -79,22 +87,31 @@ class AgendaCell : UITableViewCell {
          4. eventTitle, locationImage and eventLocation will have equal heights.
          */
         
+        contentView.addSubview(eventTitle)
+        contentView.addSubview(eventLocation)
+        contentView.addSubview(locationImage)
+        
+        eventTitle.translatesAutoresizingMaskIntoConstraints = false
+        eventLocation.translatesAutoresizingMaskIntoConstraints = false
+        locationImage.translatesAutoresizingMaskIntoConstraints = false
+        
+        
         eventTitle.leftAnchor.constraint(equalTo: classificationColor.rightAnchor).isActive = true
-        eventTitle.topAnchor.constraint(equalTo: eventStartTime.topAnchor).isActive = true
+        eventTitle.topAnchor.constraint(equalTo: marginGuide.topAnchor).isActive = true
         eventTitle.rightAnchor.constraint(equalTo: marginGuide.rightAnchor).isActive = true
         
-        locationImage.leftAnchor.constraint(equalTo: classificationColor.rightAnchor).isActive = true
-        locationImage.topAnchor.constraint(equalTo: eventTitle.bottomAnchor).isActive = true
+        locationImage.leftAnchor.constraint(equalTo: eventDuration.rightAnchor).isActive = true
+        locationImage.topAnchor.constraint(equalTo: eventDuration.topAnchor).isActive = true
         
-        locationImage.widthAnchor.constraint(equalToConstant: 50.0)
-        locationImage.heightAnchor.constraint(equalToConstant: 50.0)
+        locationImage.widthAnchor.constraint(equalToConstant : 20.0)
+        locationImage.heightAnchor.constraint(equalToConstant: 20.0)
         
-        eventTitle.leftAnchor.constraint(equalTo: locationImage.rightAnchor).isActive = true
-        eventTitle.topAnchor.constraint(equalTo: eventTitle.topAnchor).isActive = true
+        eventLocation.leftAnchor.constraint(equalTo: locationImage.rightAnchor).isActive = true
+        eventLocation.topAnchor.constraint(equalTo: eventDuration.topAnchor).isActive = true
         eventTitle.rightAnchor.constraint(equalTo: marginGuide.rightAnchor).isActive = true
         
-        eventTitle.heightAnchor.constraint(equalToConstant: 50.0).isActive = true
-        eventLocation.heightAnchor.constraint(equalTo: eventStartTime.heightAnchor, multiplier: 1.0).isActive = true
+        eventTitle.heightAnchor.constraint(equalToConstant: 30.0).isActive = true
+        
         
         /*
          Label properties
@@ -102,9 +119,11 @@ class AgendaCell : UITableViewCell {
         eventTitle.textAlignment     = .left
         eventTitle.textColor         = .black
         eventTitle.font              =  UIFont.systemFont(ofSize: 16, weight: .regular)
+        eventTitle.numberOfLines     = 2
         eventLocation.textAlignment  = .left
         eventLocation.textColor      = .lightGray
         eventLocation.font           =  UIFont.systemFont(ofSize: 14, weight: .light)
+        eventLocation.numberOfLines  = 2
         
     }
     
@@ -124,6 +143,13 @@ class AgendaCell : UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        classificationColor.layer.cornerRadius = classificationColor.frame.size.width/2.0
+        classificationColor.layer.masksToBounds = true
+        classificationColor.layer.cornerRadius = 5.0
+       
+        
+        classificationColor.text = "  "
+        
+        locationImage.contentMode = .scaleAspectFit
+        locationImage.image = UIImage(named:"Location")
     }
 }

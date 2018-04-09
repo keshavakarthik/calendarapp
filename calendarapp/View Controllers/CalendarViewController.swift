@@ -27,16 +27,41 @@ class CalendarViewController: UIViewController,UITableViewDataSource,UITableView
         super.viewDidLoad()
         title = "CALENDAR"
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor(hex: 0x00BFFF),
-                                                                    NSAttributedStringKey.font : UIFont.systemFont(ofSize: 18.0, weight: .semibold)]
+                                                                NSAttributedStringKey.font : UIFont.systemFont(ofSize: 18.0, weight: .semibold)]
         
         
+        let agendaButton:UIButton = UIButton(type: .custom) as UIButton
+        agendaButton.addTarget(self, action: #selector(CalendarViewController.agendaClicked), for: .touchUpInside)
+        agendaButton.setImage(#imageLiteral(resourceName: "Agenda"), for: .normal)
+        agendaButton.sizeToFit()
+        let agendaBarButton:UIBarButtonItem = UIBarButtonItem(customView: agendaButton)
+        
+        let addButton:UIButton = UIButton(type: .custom) as UIButton
+        addButton.addTarget(self, action: #selector(CalendarViewController.addClicked), for: .touchUpInside)
+        addButton.setImage(#imageLiteral(resourceName: "Add"), for: .normal)
+        addButton.sizeToFit()
+        let addBarButton:UIBarButtonItem = UIBarButtonItem(customView: addButton)
+        
+        self.navigationItem.rightBarButtonItems = [agendaBarButton,addBarButton]
         
         configureTableView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        let indexPath = IndexPath(row: 0, section: ((currentYear-2018)*12)+currentMonth-1)
+        let indexPath = IndexPath(row: 0, section: ((currentYear-startOfcalendarYear)*12)+currentMonth-1)
         self.calendarTableView.scrollToRow(at: indexPath, at: .top, animated: true)
+    }
+    
+    //MARK: - Navigations
+    @objc func agendaClicked()
+    {
+        let agendaViewController = AgendaViewController()
+        self.navigationController?.pushViewController(agendaViewController, animated: true)
+    }
+    
+    @objc func addClicked()
+    {
+       print("Add Clicked")
     }
     
     //MARK: - Configure Tableview

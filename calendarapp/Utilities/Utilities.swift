@@ -20,6 +20,18 @@ open class Utilities {
     }()
     
     /**
+     Get Date String
+    */
+    func getDateString(date:Date) -> String {
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy MM dd"
+        
+        let dateString = formatter.string(from: date)
+        return dateString
+    }
+    
+    /**
      Get TableView Header String
     */
     func getHeader(forMonth month:Int, forYear year: Int)->String
@@ -52,6 +64,26 @@ open class Utilities {
         default:
             return ""
         }
+    }
+    
+    /**
+     Get Agenda Header from date String
+    */
+    func getAgendaHeader(dateString:String) -> String {
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy MM dd"
+        
+        guard let date = formatter.date(from: dateString) else
+        {
+            print("Date conversion error")
+            return ""
+        }
+        
+        formatter.dateFormat = "dd'th' MMM, yyyy"
+        
+        let headerString = formatter.string(from: date)
+        return headerString
     }
     
     /**

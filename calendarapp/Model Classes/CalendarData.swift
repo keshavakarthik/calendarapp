@@ -8,6 +8,8 @@
 
 import Foundation
 
+let startOfcalendarYear = 1900
+
 public class CalendarData {
     
     var calendarData = [CalendarModel]()
@@ -15,7 +17,7 @@ public class CalendarData {
     
     public init()
     {
-        for year in 2018..<currentYear+1
+        for year in startOfcalendarYear..<currentYear+1
         {
             for month in 1..<13
             {
